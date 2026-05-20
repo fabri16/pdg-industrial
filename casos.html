@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Casos · PDG Industrial</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          orange: { DEFAULT: '#F18700', 50:'#FFF4E5', 100:'#FFE3BF', 500:'#F18700', 600:'#D97A00', 700:'#A65C00' },
+          ink: { 950:'#0D0D0C', 900:'#1D1D1B', 800:'#252523', 700:'#2E2E2C', 600:'#3A3A38', 500:'#575756', 400:'#7A7A78', 300:'#A8A8A6', 200:'#D6D6D4' },
+        },
+        fontFamily: {
+          display: ['"Barlow Condensed"', 'system-ui', 'sans-serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        },
+      }
+    }
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0D0D0C; color: #FFFFFF; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .display { font-family: 'Barlow Condensed', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.01em; line-height: 0.95; text-transform: uppercase; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-d-1 { transition-delay: 60ms; }
+  .reveal-d-2 { transition-delay: 120ms; }
+  .reveal-d-3 { transition-delay: 180ms; }
+  .reveal-d-4 { transition-delay: 240ms; }
+  .reveal-d-5 { transition-delay: 300ms; }
+  .reveal-d-6 { transition-delay: 360ms; }
+  .reveal-d-7 { transition-delay: 420ms; }
+  .reveal-d-8 { transition-delay: 480ms; }
+
+  .grid-texture { background-image: linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 80px 80px; }
+  .grid-texture-fine { background-image: linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 40px 40px; }
+
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:#F18700; transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+  .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+  .lift { transition: transform .6s cubic-bezier(.2,.7,.2,1), border-color .6s; }
+  .lift:hover { transform: translateY(-4px); }
+
+  .img-zoom img { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .img-zoom:hover img { transform: scale(1.06); }
+
+  .chip { transition: all .25s ease; }
+  .chip:hover { border-color: #F18700; color: #fff; }
+  .chip.active { background: #F18700; color: #0D0D0C; border-color: #F18700; }
+
+  /* Project card filter image tones (rotating across cards) */
+  .tone-0 img { filter: none; }
+  .tone-1 img { filter: saturate(0.4) brightness(0.85); }
+  .tone-2 img { filter: hue-rotate(-12deg) brightness(0.92); }
+  .tone-3 img { filter: contrast(1.1) brightness(0.85); }
+  .tone-4 img { filter: saturate(0.7) brightness(0.95) hue-rotate(8deg); }
+
+  ::selection { background:#F18700; color:#0D0D0C; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #252523; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3A3A38; }
+  ::-webkit-scrollbar-track { background: #0D0D0C; }
+
+  /* ===== Responsive normalization ===== */
+  html, body { overflow-x: hidden; }
+  img, svg { max-width: 100%; height: auto; }
+  .display { word-break: break-word; overflow-wrap: anywhere; text-wrap: balance; }
+
+  @media (max-width: 640px) {
+    .py-28 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+    .py-36 { padding-top: 4.5rem !important; padding-bottom: 4.5rem !important; }
+    .pt-32 { padding-top: 5rem !important; }
+    .pt-28 { padding-top: 4rem !important; }
+    .pt-44 { padding-top: 6rem !important; }
+    .pt-36 { padding-top: 5rem !important; }
+    .pb-28 { padding-bottom: 4rem !important; }
+    .pb-20 { padding-bottom: 3rem !important; }
+    .pb-36 { padding-bottom: 4.5rem !important; }
+    .mt-16 { margin-top: 2.5rem !important; }
+    .mt-24 { margin-top: 3.5rem !important; }
+    .gap-10 { gap: 1.5rem !important; }
+    .gap-12 { gap: 2rem !important; }
+    .p-10 { padding: 1.5rem !important; }
+  }
+  @media (max-width: 380px) {
+    .fab-volver, .fab-cta { padding-left: 0.85rem !important; padding-right: 0.85rem !important; font-size: 10px !important; }
+  }
+
+  /* ===== Modal ===== */
+  #modal-bg { position:fixed; inset:0; z-index:200; background:rgba(13,13,12,.93); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity .3s; }
+  #modal-bg.open { opacity:1; pointer-events:all; }
+  #modal-wrap { position:relative; background:#1D1D1B; border:1px solid #3A3A38; width:100%; max-width:1080px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; transform:translateY(14px) scale(.98); transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+  #modal-bg.open #modal-wrap { transform:none; }
+  @media (min-width:768px) { #modal-wrap { flex-direction:row; height:85vh; max-height:90vh; } }
+  #modal-gallery { background:#0D0D0C; display:flex; flex-direction:column; min-height:220px; }
+  @media (min-width:768px) { #modal-gallery { width:58%; min-height:0; overflow:hidden; } }
+  #modal-main { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+  #modal-img { max-width:100%; max-height:100%; width:100%; height:100%; object-fit:contain; display:block; }
+  #modal-thumbs { display:flex; gap:6px; padding:8px 12px; overflow-x:auto; background:rgba(0,0,0,.4); border-top:1px solid #252523; scrollbar-width:thin; scrollbar-color:#252523 transparent; flex-shrink:0; }
+  .modal-thumb { width:60px; height:44px; object-fit:cover; opacity:.4; cursor:pointer; border:2px solid transparent; flex-shrink:0; transition:opacity .2s,border-color .2s; }
+  .modal-thumb.active { opacity:1; border-color:#F18700; }
+  .modal-thumb:not(.active):hover { opacity:.7; border-color:rgba(241,135,0,.4); }
+  .modal-arrow { position:absolute; top:50%; transform:translateY(-50%); width:38px; height:38px; background:rgba(13,13,12,.75); border:1px solid rgba(255,255,255,.15); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; transition:all .2s; font-size:22px; line-height:1; user-select:none; }
+  .modal-arrow:hover { background:#F18700; border-color:#F18700; color:#0D0D0C; }
+  #modal-prev { left:10px; }
+  #modal-next { right:10px; }
+  #modal-info { flex:1; padding:1.75rem 1.5rem 2rem; overflow-y:auto; display:flex; flex-direction:column; min-height:0; }
+  @media (min-width:768px) { #modal-info { padding:2.5rem 2rem; } }
+  #modal-close { position:absolute; top:10px; right:10px; z-index:300; width:32px; height:32px; background:rgba(13,13,12,.85); border:1px solid rgba(255,255,255,.2); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; line-height:1; transition:all .2s; }
+  #modal-close:hover { background:#F18700; border-color:#F18700; color:#0D0D0C; }
+  .card-clickable { cursor:pointer; }
+
+</style>
+</head>
+<body class="bg-ink-950">
+
+<!-- ==================== HEADER (hidden on casos page — only floating Volver button) ==================== -->
+<header id="header" hidden class="hidden"></header>
+
+<!-- Floating Volver pill (top-left) -->
+<a href="v1-industrial.html#proyectos" class="fab-volver fixed top-4 left-4 sm:top-6 sm:left-6 lg:top-8 lg:left-10 z-[300] inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 bg-ink-950/85 backdrop-blur-xl border border-ink-700 hover:border-orange hover:text-orange text-white mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase transition-colors group">
+  <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="transition-transform duration-300 group-hover:-translate-x-1"><path d="M13 5H1M5 1L1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+  Volver
+</a>
+
+<!-- Floating Presupuesto pill (top-right) -->
+<a href="v1-industrial.html#contacto" class="fab-cta hidden sm:inline-flex fixed top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-10 z-[300] items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 bg-orange text-ink-950 hover:bg-orange-600 mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase transition-colors group">
+  <span class="hidden md:inline" style="font-family: Inter">Solicitar Presupuesto</span><span class="md:hidden" style="font-family: Inter">Presupuesto</span>
+  <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" /></svg>
+</a>
+
+<!-- Original header retained as comment for restoration if needed -->
+<template id="original-header">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-10 flex items-center justify-between h-[72px]">
+    <a href="v1-industrial.html" class="flex items-center group" aria-label="PDG Industrial">
+      <img src="assets/logo-pdg.png" alt="PDG Industrial — Materiales Eléctricos" class="h-12 lg:h-14 w-auto" />
+    </a>
+    <nav class="hidden lg:flex items-center gap-9">
+      <a href="v1-industrial.html#inicio"    class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-ink-300 hover:text-white">Inicio</a>
+      <a href="v1-industrial.html#nosotros"  class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-ink-300 hover:text-white">Quiénes Somos</a>
+      <a href="v1-industrial.html#tableros"  class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-ink-300 hover:text-white">Tableros</a>
+      <a href="casos.html"           class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-white active">Casos</a>
+      <a href="v1-industrial.html#productos" class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-ink-300 hover:text-white">Productos</a>
+      <a href="v1-industrial.html#contacto"  class="nav-link mono text-[11px] tracking-[0.18em] uppercase text-ink-300 hover:text-white">Contacto</a>
+    </nav>
+    <a href="v1-industrial.html#contacto" class="hidden md:inline-flex items-center gap-3 px-6 py-3.5 text-[13px] tracking-[0.12em] uppercase font-medium bg-orange text-ink-950 hover:bg-orange-600 transition-colors group">
+      <span>Solicitar Presupuesto</span>
+      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+  </div>
+</header>
+</template>
+<!-- end retained header -->
+
+<!-- ==================== HERO ==================== -->
+<section class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+  <div class="absolute inset-0 grid-texture opacity-50"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(60% 50% at 80% 30%, rgba(241,135,0,.18), transparent 60%), radial-gradient(40% 40% at 10% 80%, rgba(241,135,0,.10), transparent 70%);"></div>
+
+  <div class="relative max-w-[1440px] mx-auto px-6 lg:px-10">
+    <!-- Breadcrumb -->
+    <div data-reveal class="reveal flex items-center gap-3 mono text-[11px] tracking-[0.18em] text-ink-300 uppercase mb-10">
+      <a href="v1-industrial.html" class="hover:text-orange transition-colors">Inicio</a>
+      <span class="text-ink-600">/</span>
+      <span class="text-white">Casos</span>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-8">
+        <div data-reveal class="reveal flex items-center gap-3 mono text-[11px] tracking-[0.18em] text-ink-300 uppercase">
+          <span class="text-orange">04 / CASOS</span>
+          <span class="h-px w-8 bg-ink-600"></span>
+          <span>1.200+ proyectos energizados</span>
+        </div>
+        <h1 data-reveal class="reveal reveal-d-1 display text-white text-[clamp(48px,7vw,128px)] mt-6 max-w-[15ch]">
+          Casos que <span class="text-orange">prendieron</span> la industria argentina.
+        </h1>
+      </div>
+      <div data-reveal class="reveal reveal-d-2 lg:col-span-4 text-ink-200 leading-relaxed">
+        <p>Una selección curada de los proyectos en los que PDG diseñó, fabricó y puso en marcha tableros eléctricos, sistemas de automatización y suministros para plantas industriales en todo el país.</p>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div data-reveal class="reveal reveal-d-3 mt-12 lg:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-10 gap-y-6 sm:gap-y-8 border-t border-ink-800 pt-8 lg:pt-10">
+      <div>
+        <div class="display text-orange text-3xl sm:text-5xl lg:text-6xl">+500</div>
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-300 uppercase mt-2">Tableros entregados</div>
+      </div>
+      <div>
+        <div class="display text-white text-3xl sm:text-5xl lg:text-6xl">150+</div>
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-300 uppercase mt-2">Clientes activos</div>
+      </div>
+      <div>
+        <div class="display text-white text-3xl sm:text-5xl lg:text-6xl">10</div>
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-300 uppercase mt-2">Provincias</div>
+      </div>
+      <div>
+        <div class="display text-white text-3xl sm:text-5xl lg:text-6xl">20</div>
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-300 uppercase mt-2">Años de obra</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FILTERS + GRID ==================== -->
+<section class="relative bg-ink-950 pb-28 lg:pb-36">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-10">
+
+    <!-- Filter bar -->
+    <div data-reveal class="reveal mb-8 lg:mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-6 border-y border-ink-800 py-5 lg:py-6">
+      <div class="flex items-center gap-3 mono text-[11px] tracking-[0.18em] text-ink-300 uppercase">
+        <span class="text-orange">●</span>
+        Filtrar por sector
+      </div>
+      <div id="filters" class="flex flex-wrap gap-2">
+        <!-- chips injected by JS -->
+      </div>
+      <div class="mono text-[11px] tracking-[0.18em] text-ink-300 uppercase">
+        <span id="visible-count">12</span> de <span id="total-count">12</span> casos
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+      <!-- cards injected by JS -->
+    </div>
+
+    <!-- CTA strip -->
+    <div data-reveal class="reveal mt-16 lg:mt-24 relative overflow-hidden border border-ink-800 bg-ink-900">
+      <div class="absolute inset-0 grid-texture-fine opacity-40"></div>
+      <div class="relative grid lg:grid-cols-12 gap-6 lg:gap-8 p-6 sm:p-10 lg:p-14 items-center">
+        <div class="lg:col-span-8">
+          <div class="mono text-[10px] tracking-[0.2em] text-ink-300 uppercase">¿Tu proyecto?</div>
+          <h2 class="display text-white text-[clamp(36px,4.5vw,72px)] mt-4 max-w-3xl">
+            Sumá tu obra a la lista. <span class="text-orange">Cotizamos en 48 horas.</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-4 flex lg:justify-end">
+          <a href="v1-industrial.html#contacto" class="inline-flex items-center gap-3 px-6 py-3.5 text-[13px] tracking-[0.12em] uppercase font-medium bg-orange text-ink-950 hover:bg-orange-600 transition-colors group">
+            <span>Solicitar Presupuesto</span>
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="relative bg-ink-900 border-t border-ink-800">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5">
+        <a href="v1-industrial.html" class="flex items-center" aria-label="PDG Industrial">
+          <img src="assets/logo-pdg.png" alt="PDG Industrial — Materiales Eléctricos" class="h-12 lg:h-14 w-auto" />
+        </a>
+        <p class="mt-6 text-ink-300 max-w-md leading-relaxed">PDG Industrial — Tableros eléctricos y materiales para la industria argentina desde 2003.</p>
+      </div>
+      <div class="lg:col-span-3">
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-400 uppercase">Contacto</div>
+        <ul class="mt-5 space-y-3 text-ink-200">
+          <li>Av. Industrial 1234<br/>Avellaneda, Buenos Aires</li>
+          <li>+54 11 4444-0000</li>
+          <li>contacto@pdgindustrial.com.ar</li>
+        </ul>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="mono text-[10px] tracking-[0.2em] text-ink-400 uppercase">Navegación</div>
+        <ul class="mt-5 space-y-3">
+          <li><a href="v1-industrial.html#nosotros"  class="text-ink-200 hover:text-orange transition-colors">Nosotros</a></li>
+          <li><a href="v1-industrial.html#tableros"  class="text-ink-200 hover:text-orange transition-colors">Tableros</a></li>
+          <li><a href="casos.html"           class="text-ink-200 hover:text-orange transition-colors">Casos</a></li>
+          <li><a href="v1-industrial.html#productos" class="text-ink-200 hover:text-orange transition-colors">Productos</a></li>
+          <li><a href="v1-industrial.html#contacto"  class="text-ink-200 hover:text-orange transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-16 pt-6 border-t border-ink-800 flex flex-col md:flex-row md:items-center justify-between gap-4 mono text-[10px] tracking-[0.18em] uppercase text-ink-400">
+      <div>© 2025 PDG Industrial S.A. · CUIT 30-00000000-0 · Todos los derechos reservados.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white">Política de privacidad</a>
+        <a href="#" class="hover:text-white">Términos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== DATA + LOGIC ==================== -->
+<script>
+  // Sticky header tint — disabled on casos page (header is hidden)
+  // const header = document.getElementById('header');
+  // const onScroll = () => { ... };
+  // window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Reveal on scroll — BIDIRECTIONAL (fade in entering / fade out leaving)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in');
+      else e.target.classList.remove('in');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  // ==== Cases data ====
+  const PROJECTS = [
+    { n:'01', sector:'Saneamiento',  title:'Tablero bombeo aguas negras',                      location:'Argentina',        year:'2025', kw:'—',
+      imgs:['assets/tablero-bombeo-aguas-negras-1.jpg','assets/tablero-bombeo-aguas-negras-2.jpg'],
+      desc:'Tablero diseñado para controlar bombas sumergibles destinadas al traslado de aguas residuales. Gestiona el arranque y parada automática según el nivel del pozo mediante sensores o flotantes, e incorpora protecciones eléctricas para garantizar un funcionamiento seguro y continuo.' },
+    { n:'02', sector:'Energía',      title:'Tablero corrector de coseno',                       location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-corrector-coseno-1.jpg','assets/tablero-corrector-coseno-2.jpg'],
+      desc:'Sistema automático de compensación de energía reactiva mediante bancos de capacitores. Mejora el factor de potencia y reduce penalizaciones en el consumo eléctrico.' },
+    { n:'03', sector:'Distribución', title:'Tablero de distribución',                           location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-distribucion-1.png','assets/tablero-distribucion-2.png','assets/tablero-distribucion-3.png'],
+      desc:'Tablero encargado de recibir la energía principal y distribuirla de manera segura hacia distintos circuitos, con las protecciones correspondientes.' },
+    { n:'04', sector:'Salud',        title:'Tablero hospitalario — Resonador',                  location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-hospitalario-resonador-1.png','assets/tablero-hospitalario-resonador-2.png','assets/tablero-hospitalario-resonador-3.png','assets/tablero-hospitalario-resonador-4.png'],
+      desc:'Tablero eléctrico desarrollado para alimentar y proteger un equipo de resonancia magnética. Su diseño asegura estabilidad eléctrica, distribución confiable y protecciones específicas para equipos médicos de alta sensibilidad.' },
+    { n:'05', sector:'Salud',        title:'Tablero hospitalario — Tomógrafo',                  location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-hospitalario-tomografo-1.png','assets/tablero-hospitalario-tomografo-2.png','assets/tablero-hospitalario-tomografo-3.jpg','assets/tablero-hospitalario-tomografo-4.png'],
+      desc:'Tablero especialmente diseñado para la alimentación y protección de equipos de tomografía, garantizando estabilidad eléctrica y máxima confiabilidad operativa.' },
+    { n:'06', sector:'Alimenticia',  title:'Tablero para amasadora',                            location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-amasadora-1.jpg','assets/tablero-amasadora-2.png'],
+      desc:'Controla el motor de una amasadora industrial, incluyendo arranque, parada y protecciones contra sobrecargas.' },
+    { n:'07', sector:'Industrial',   title:'Tablero para bombeo',                               location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-bombeo-1.jpg','assets/tablero-bombeo-2.jpg'],
+      desc:'Sistema de control y protección para bombas de agua o fluidos industriales. Permite operación manual o automática y resguarda los motores ante sobrecargas, cortocircuitos y fallas de fase.' },
+    { n:'08', sector:'Saneamiento',  title:'Tablero para bombeo — Arranque secuencial',         location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-bombeo-secuencial-1.jpg','assets/tablero-bombeo-secuencial-2.png'],
+      desc:'Controla múltiples bombas que arrancan de forma escalonada para evitar picos de demanda eléctrica y optimizar la operación del sistema.' },
+    { n:'09', sector:'Industrial',   title:'Tablero para cabina de pintura',                    location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-cabina-pintura-1.png','assets/tablero-cabina-pintura-2.png','assets/tablero-cabina-pintura-3.png'],
+      desc:'Administra ventiladores, iluminación y sistemas auxiliares de una cabina de pintura, garantizando condiciones adecuadas de trabajo.' },
+    { n:'10', sector:'Frigorífico',  title:'Tablero para cámara frigorífica — Alpes',           location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-camara-frig-alpes-1.jpg','assets/tablero-camara-frig-alpes-2.jpg'],
+      desc:'Tablero destinado al control integral de una cámara frigorífica. Administra compresores, ventiladores y sistemas de deshielo, manteniendo las condiciones necesarias para la conservación de productos.' },
+    { n:'11', sector:'Frigorífico',  title:'Tablero para cámara frigorífica',                   location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-camara-frigorifica-1.png','assets/tablero-camara-frigorifica-2.png'],
+      desc:'Permite controlar los distintos componentes de refrigeración, manteniendo temperatura y condiciones de funcionamiento constantes.' },
+    { n:'12', sector:'Alimenticia',  title:'Tablero para molienda de yerba/palo',               location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-molienda-yerba-1.jpg','assets/tablero-molienda-yerba-2.png','assets/tablero-molienda-yerba-3.jpg'],
+      desc:'Sistema de control para motores y equipos involucrados en el proceso de molienda industrial, con protecciones y automatización adaptadas al proceso.' },
+    { n:'13', sector:'Logística',    title:'Tablero para montacargas 4 pisos',                  location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-montacargas-1.jpg','assets/tablero-montacargas-2.jpg'],
+      desc:'Controla el funcionamiento de un montacargas industrial de cuatro niveles. Gestiona motores, finales de carrera, botoneras y sistemas de seguridad para un traslado eficiente y seguro.' },
+    { n:'14', sector:'Agua Potable', title:'Tablero para planta potabilizadora',                location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-planta-potable-1.jpg','assets/tablero-planta-potable-2.jpg'],
+      desc:'Automatiza y protege bombas, dosificadores y equipos de tratamiento utilizados en el proceso de potabilización de agua.' },
+    { n:'15', sector:'Energía',      title:'Tablero para transferencia automática',             location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-transferencia-1.jpg','assets/tablero-transferencia-2.jpg'],
+      desc:'Tablero ATS (Automatic Transfer Switch) que detecta cortes de energía y conmuta automáticamente entre la red eléctrica y un grupo electrógeno, asegurando continuidad de servicio.' },
+    { n:'16', sector:'Agua Potable', title:'Tablero para tratamiento de agua potable',          location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-trat-agua-potable-1.jpg','assets/tablero-trat-agua-potable-2.jpg'],
+      desc:'Sistema de control para instalaciones de purificación y distribución de agua, asegurando una operación eficiente y segura.' },
+    { n:'17', sector:'Agua Potable', title:'Tablero planta potabilizadora — Cruz del Eje',     location:'Cruz del Eje, Cba', year:'—',   kw:'—',
+      imgs:['assets/tablero-planta-pot-cba-1.jpg','assets/tablero-planta-pot-cba-2.jpg','assets/tablero-planta-pot-cba-3.jpg','assets/tablero-planta-pot-cba-4.jpg'],
+      desc:'Tablero desarrollado para automatizar y proteger los equipos de una planta potabilizadora específica, asegurando un suministro de agua confiable y continuo.' },
+    { n:'18', sector:'Saneamiento',  title:'Tablero planta de tratamiento de efluentes',       location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-trat-efluentes-1.jpg','assets/tablero-trat-efluentes-2.jpg','assets/tablero-trat-efluentes-3.jpg'],
+      desc:'Integra el control de bombas, sopladores, agitadores y sensores utilizados en el proceso de tratamiento de aguas residuales industriales o sanitarias.' },
+    { n:'19', sector:'Saneamiento',  title:'Tablero planta efluentes — Libertad/Lugones',      location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-efluente-lugones-1.jpg','assets/tablero-efluente-lugones-2.png','assets/tablero-efluente-lugones-3.png'],
+      desc:'Tablero desarrollado a medida para una planta de tratamiento específica, integrando el control automático de todos sus equipos electromecánicos.' },
+    { n:'20', sector:'Saneamiento',  title:'Tablero tratamiento de efluentes — Arranque suave',location:'Argentina',        year:'—',    kw:'—',
+      imgs:['assets/tablero-efluente-arr-suave-1.jpg','assets/tablero-efluente-arr-suave-2.jpg','assets/tablero-efluente-arr-suave-3.jpg','assets/tablero-efluente-arr-suave-4.jpg'],
+      desc:'Diseñado para accionar motores de gran potencia mediante soft starters, reduciendo picos de corriente y esfuerzos mecánicos durante el arranque.' },
+  ];
+
+  const SECTORS = ['Todos', ...Array.from(new Set(PROJECTS.map(p => p.sector)))];
+
+  const filtersEl = document.getElementById('filters');
+  const gridEl    = document.getElementById('grid');
+  const visEl     = document.getElementById('visible-count');
+  const totEl     = document.getElementById('total-count');
+  totEl.textContent = PROJECTS.length;
+
+  let active = 'Todos';
+
+  // Render filter chips
+  SECTORS.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'chip mono text-[11px] tracking-[0.18em] uppercase border border-ink-700 text-ink-200 px-4 py-2';
+    if (s === active) b.classList.add('active');
+    b.textContent = s;
+    b.addEventListener('click', () => {
+      active = s;
+      [...filtersEl.children].forEach(c => c.classList.toggle('active', c.textContent === s));
+      render();
+    });
+    filtersEl.appendChild(b);
+  });
+
+  function cardHTML(p, i) {
+    const tone = `tone-${i % 5}`;
+    const meta = [p.year, p.kw].filter(v => v && v !== '—').join(' · ');
+    return `
+      <article data-reveal class="reveal reveal-d-${(i % 6) + 1} group lift card-clickable" data-project-n="${p.n}">
+        <div class="img-zoom relative h-[360px] sm:h-[420px] lg:h-[500px] overflow-hidden border border-ink-800 group-hover:border-orange/60 transition-colors duration-500 ${tone}">
+          <img src="${p.imgs[0]}" alt="" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/10 to-transparent"></div>
+          <div class="absolute top-5 left-5 flex items-center gap-2 z-10">
+            <span class="mono text-[10px] tracking-[0.2em] uppercase border border-white/30 text-white px-2 py-1 backdrop-blur-sm bg-ink-950/40">${p.sector}</span>
+          </div>
+          <div class="absolute top-5 right-5 mono text-[10px] tracking-[0.2em] uppercase text-white/70 z-10">${p.n}/${PROJECTS.length}</div>
+          <div class="absolute inset-x-0 bottom-0 p-6 z-10">
+            <div class="flex items-center justify-between mono text-[10px] tracking-[0.18em] uppercase text-ink-200 mb-3">
+              <span>${p.location}</span>
+              <span>${meta}</span>
+            </div>
+            <h3 class="display text-white text-2xl lg:text-3xl leading-tight">${p.title}</h3>
+            <p class="text-ink-200 text-sm leading-relaxed mt-3 max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500">${p.desc}</p>
+            <div class="mt-4 flex items-center gap-2 text-orange opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+              <span class="mono text-[10px] tracking-[0.2em] uppercase">Ver galería${p.imgs.length > 1 ? ' · ' + p.imgs.length + ' fotos' : ''}</span>
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function render() {
+    const filtered = active === 'Todos' ? PROJECTS : PROJECTS.filter(p => p.sector === active);
+    visEl.textContent = filtered.length;
+    gridEl.innerHTML = filtered.map(cardHTML).join('');
+    gridEl.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  }
+  render();
+
+  // ============================================================
+  //  MODAL
+  // ============================================================
+  document.body.insertAdjacentHTML('beforeend', `
+    <div id="modal-bg" role="dialog" aria-modal="true">
+      <div id="modal-wrap">
+        <button id="modal-close" aria-label="Cerrar">&#x2715;</button>
+        <div id="modal-gallery">
+          <div id="modal-main">
+            <img id="modal-img" src="" alt="" />
+            <button class="modal-arrow" id="modal-prev" aria-label="Foto anterior">&#8249;</button>
+            <button class="modal-arrow" id="modal-next" aria-label="Foto siguiente">&#8250;</button>
+          </div>
+          <div id="modal-thumbs"></div>
+        </div>
+        <div id="modal-info">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem">
+            <span id="modal-sector" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(241,135,0,.55);color:#F18700;padding:3px 8px"></span>
+            <span id="modal-num"    style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#575756"></span>
+          </div>
+          <h2 id="modal-title" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(22px,3vw,40px);line-height:1;text-transform:uppercase;letter-spacing:-.01em;color:#fff;margin-top:1.25rem"></h2>
+          <p  id="modal-desc"  style="color:#A8A8A6;line-height:1.75;margin-top:1.25rem;font-size:.875rem;flex:1"></p>
+          <div id="modal-meta" style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid #252523;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem"></div>
+          <div id="modal-counter" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#575756;margin-top:1.25rem"></div>
+        </div>
+      </div>
+    </div>
+  `);
+
+  let modalProject = null, modalImgIdx = 0;
+
+  function openModal(p) {
+    modalProject = p;
+    document.getElementById('modal-sector').textContent = p.sector;
+    document.getElementById('modal-num').textContent    = p.n + ' / ' + PROJECTS.length;
+    document.getElementById('modal-title').textContent  = p.title;
+    document.getElementById('modal-desc').textContent   = p.desc;
+
+    const metas = [];
+    if (p.location && p.location !== '—') metas.push({ label:'Ubicación', val:p.location });
+    if (p.year     && p.year     !== '—') metas.push({ label:'Año',       val:p.year });
+    if (p.kw       && p.kw       !== '—') metas.push({ label:'Potencia',  val:p.kw });
+    document.getElementById('modal-meta').innerHTML = metas.map(m =>
+      `<div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#575756;margin-bottom:4px">${m.label}</div>
+        <div style="color:#fff;font-size:.875rem">${m.val}</div>
+      </div>`
+    ).join('');
+
+    const thumbsEl = document.getElementById('modal-thumbs');
+    thumbsEl.innerHTML = p.imgs.map((src, i) =>
+      `<img src="${src}" class="modal-thumb" data-idx="${i}" alt="Foto ${i+1}" />`
+    ).join('');
+    thumbsEl.style.display = p.imgs.length > 1 ? '' : 'none';
+    thumbsEl.querySelectorAll('.modal-thumb').forEach(t =>
+      t.addEventListener('click', () => setModalImg(+t.dataset.idx))
+    );
+
+    setModalImg(0);
+    document.getElementById('modal-bg').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-bg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function setModalImg(idx) {
+    if (!modalProject || idx < 0 || idx >= modalProject.imgs.length) return;
+    modalImgIdx = idx;
+    document.getElementById('modal-img').src = modalProject.imgs[idx];
+    const total = modalProject.imgs.length;
+    document.getElementById('modal-counter').textContent = total > 1 ? 'Foto ' + (idx + 1) + ' de ' + total : '';
+    document.querySelectorAll('.modal-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+    document.getElementById('modal-prev').style.display = idx > 0         ? '' : 'none';
+    document.getElementById('modal-next').style.display = idx < total - 1 ? '' : 'none';
+  }
+
+  gridEl.addEventListener('click', e => {
+    const card = e.target.closest('[data-project-n]');
+    if (card) {
+      const p = PROJECTS.find(x => x.n === card.dataset.projectN);
+      if (p) openModal(p);
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('modal-bg').classList.contains('open')) return;
+    if (e.key === 'Escape')     closeModal();
+    if (e.key === 'ArrowLeft')  setModalImg(modalImgIdx - 1);
+    if (e.key === 'ArrowRight') setModalImg(modalImgIdx + 1);
+  });
+
+  document.getElementById('modal-bg').addEventListener('click', e => {
+    if (e.target.id === 'modal-bg') closeModal();
+  });
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-prev').addEventListener('click',  () => setModalImg(modalImgIdx - 1));
+  document.getElementById('modal-next').addEventListener('click',  () => setModalImg(modalImgIdx + 1));
+</script>
+
+</body>
+</html>
