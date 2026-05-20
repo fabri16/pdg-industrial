@@ -362,10 +362,9 @@ function About() {
               <p>Trabajamos junto a equipos de mantenimiento, contratistas e integradores con un único objetivo: entregar soluciones confiables, normalizadas y a tiempo.</p>
             </Reveal>
 
-            <Reveal delay={3} className="mt-12 grid grid-cols-3 gap-6 max-w-2xl">
+            <Reveal delay={3} className="mt-12 grid grid-cols-2 gap-6 max-w-2xl">
               {[
               ['IEC 61439', 'Norma de tableros'],
-              ['ISO 9001', 'Calidad'],
               ['24/7', 'Soporte post-venta']].
               map(([k, v]) =>
               <div key={k} className="border-t border-ink-700 pt-4">
@@ -424,7 +423,7 @@ const SERVICES = [
 {
   n: '03',
   title: 'Asesoramiento Técnico',
-  desc: 'Acompañamos tu proyecto desde el cómputo eléctrico hasta la puesta en marcha y la documentación as-built.',
+  desc: 'Acompañamos tu proyecto desde el cómputo eléctrico hasta la puesta en marcha.',
   bullets: ['Selectividad y coordinación', 'Cálculo de cortocircuito', 'Eficiencia energética', 'Documentación AutoCAD/EPLAN'],
   icon:
   <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -445,9 +444,6 @@ function Services() {
               Servicios diseñados<br />para la <span className="text-orange">producción continua</span>.
             </Reveal>
           </div>
-          <Reveal delay={2} className="max-w-md text-ink-200 leading-relaxed">
-            Cada servicio se entrega con planos as-built, ensayos eléctricos y memoria técnica firmada por matrícula.
-          </Reveal>
         </div>
 
         <div className="grid md:grid-cols-3 gap-px bg-ink-800 mt-12 lg:mt-16 border border-ink-800">
@@ -615,8 +611,7 @@ function Products() {
                 )}
               </div>
               <div className="flex items-center justify-between p-5 border-t border-ink-800 mono text-[10px] tracking-[0.2em] uppercase text-ink-300">
-                <span>Envíos · CABA & GBA · 24-48h</span>
-                <span>Mayorista · Cta. Cte.</span>
+                <span>Envíos · a todo el país</span>
               </div>
             </Reveal>
           </div>
@@ -635,7 +630,7 @@ const BENEFITS = [
   icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6h24v18H4z" /><path d="M4 11h24M9 6V3M23 6V3M9 17h6M9 21h10" /></svg> },
 { k: 'Stock real', d: 'Más de 1.100 productos en depósito propio. Sin esperas ni retrasos por importación.',
   icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 11l12-6 12 6v10l-12 6-12-6V11z" /><path d="M4 11l12 6 12-6M16 17v10" /></svg> },
-{ k: 'Entrega ágil', d: 'Despachos a todo el país en 24/72 horas o retiro inmediato en tienda.',
+{ k: 'Entrega ágil', d: 'Despachos a todo el país o retiro inmediato en tienda.',
   icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="9" width="17" height="14" /><path d="M19 13h6l4 5v5h-9" /><circle cx="9" cy="25" r="2.5" /><circle cx="23" cy="25" r="2.5" /></svg> },
 { k: 'Soporte post-venta', d: 'Garantía extendida, repuestos críticos y servicio técnico durante toda la vida útil del tablero.',
   icon: <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="16" cy="16" r="12" /><path d="M16 8v8l5 3M22 4l2 2M8 4l-2 2" /></svg> }];
