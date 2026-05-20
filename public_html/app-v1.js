@@ -611,7 +611,7 @@ function Products() {
                 )}
               </div>
               <div className="flex items-center justify-between p-5 border-t border-ink-800 mono text-[10px] tracking-[0.2em] uppercase text-ink-300">
-                <span>Envíos · a todo el país</span>
+                <span>Envíos a todo el país</span>
               </div>
             </Reveal>
           </div>
@@ -780,7 +780,7 @@ function Footer() {
 /* ---------- Marquee (subtle brand bar between sections) ---------- */
 
 function BrandMarquee() {
-  const items = ['IEC 61439', 'ISO 9001', 'Made in Argentina', 'Stock real', 'Entrega 24-72h', 'Ingeniería propia', 'Garantía extendida', 'Soporte 24/7'];
+  const items = ['IEC 61439', 'Made in Argentina', 'Stock real', 'Entrega rápida', 'Ingeniería propia', 'Garantía extendida', 'Soporte 24/7'];
   const doubled = [...items, ...items];
   return (
     <div className="bg-ink-950 border-y border-ink-800 fade-x overflow-hidden">
