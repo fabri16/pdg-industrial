@@ -1,7 +1,0 @@
-{
-  "name": "pdg-industrial",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "mkdir -p dist && cp index.html casos.html app-v1.js dist/ && cp -r assets dist/"
-  }
-}
